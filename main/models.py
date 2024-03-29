@@ -4,8 +4,8 @@ class reg(models.Model):
     username=models.CharField(max_length=30)
     email=models.CharField(max_length=30)
     psw=models.CharField(max_length=30)
+    address=models.CharField(max_length=50)
     phone=models.IntegerField()
-    ward=models.CharField(max_length=30)
 
 
 class coordinate(models.Model):
@@ -17,21 +17,9 @@ class coordinate(models.Model):
     password2=models.CharField(max_length=30)
     gender=models.CharField(max_length=30)
 
-class member(models.Model):
-    name=models.CharField(max_length=30)
-    age=models.CharField(max_length=30)
-    gender=models.CharField(max_length=30)
-    address=models.CharField(max_length=30)
-    state=models.CharField(max_length=30)
-    country=models.CharField(max_length=30)
-    email=models.EmailField()
-    ward=models.CharField(max_length=30)
-    phone=models.IntegerField()
-    password=models.CharField(max_length=30)
 
 class Assign(models.Model):
     name=models.CharField(max_length=10)
-    ward=models.CharField(max_length=10)
     price=models.CharField(max_length=30)
     date=models.DateField()
     time=models.TimeField()
@@ -61,5 +49,3 @@ class pay(models.Model):
     # phonenumber=models.CharField(max_length=30)yth
     membername=models.CharField(max_length=30)
     price=models.CharField(max_length=30)
-
-

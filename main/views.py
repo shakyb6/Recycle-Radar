@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.http import Http404
 import smtplib
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import reg,coordinate,member,Assign,feedback,update,pay,ufeedback
+from .models import reg,coordinate,Assign,feedback,update,pay,ufeedback
 import razorpay #import this
 from django.conf import settings
 from django.http import JsonResponse #import this
@@ -41,10 +41,19 @@ def register(request):
         name=request.POST.get('username')
         email=request.POST.get('email')
         password=request.POST.get('psw')
+        address=request.POST.get('address')
         phone=request.POST.get('phone')
-        ward=request.POST.get('ward')
-        reg(username=name,email=email,psw=password,phone=phone,ward=ward).save()
-        return redirect('login')
+         # Check if a user with the provided username or email already exists
+        existing_user = reg.objects.filter(username=name).exists() or reg.objects.filter(email=email).exists()
+        if existing_user:
+            # If a user with the provided username or email already exists, handle accordingly
+            # You can redirect the user to a different page or display an error message
+            return render(request, "registration_error.html", {"message": "Username or email already exists"})
+        else:
+            # Create a new user instance and save it to the database
+            new_user = reg(username=name, email=email, psw=password, phone=phone, address=address)
+            new_user.save()
+            return redirect('login')
     else:
         return render(request,"register.html")
 
@@ -76,6 +85,7 @@ def usprofile(request):
             'username':cr.username,
             'email':cr.email,
             'psw':cr.psw,
+            'address':cr.address,
             'phone':cr.phone,
                 }
         return render(request,'usprofile.html',user_info)
@@ -91,6 +101,7 @@ def usupdate(request):
             'username':cr.username,
             'email':cr.email,
             'psw':cr.psw,
+            'address':cr.address,
             'phone':cr.phone,
                 }
         return render(request,'usupdate.html',user_info)
@@ -103,11 +114,13 @@ def uspro(request):
         name=request.POST.get('nametxt')
         email=request.POST.get('emailtxt')
         phone=request.POST.get('phonetxt')
+        address=request.POST.get('addresstxt')
         password=request.POST.get('pswtxt')
         data=reg.objects.get(username=name)
         data.username=name
         data.email=email
         data.phone=phone
+        data.address=address
         data.psw=password
         data.save()
         return redirect('home')
@@ -227,122 +240,7 @@ def co_proupdate(request):
         return redirect('co_home')
     else:
         return render(request,'co_update.html')
-
-
-def m_reg(request):
-    if request.method=='POST':
-        name=request.POST.get('name')
-        age=request.POST.get('age')
-        gender=request.POST.get('gender')
-        address=request.POST.get('address')
-        state=request.POST.get('state')
-        country=request.POST.get('country')
-        email=request.POST.get('email')
-        phone=request.POST.get('phone')
-        password=request.POST.get('password')
-        ward=request.POST.get('ward')
-
-        member(name=name,age=age,gender=gender,address=address,state=state,country=country,email=email,phone=phone,password=password,ward=ward).save()
-        return render(request,'m_login.html')
-    else:
-        return render(request,'m_reg.html')
     
-def m_login(request):
-    if request.method=="POST":
-        email=request.POST.get('email')
-        # print(name)
-        password = request.POST.get('password')
-        # print('joy')
-        cr = member.objects.filter(email=email,password=password)
-        if cr:
-            userd =member.objects.get(email=email,password=password)
-            id=userd.id
-            email=userd.email
-            password=userd.password
-            name=userd.name
-            request.session['m_name']=name
-            return render(request,'m_home.html')
-        else:
-            return render(request,'m_login.html')
-    else:
-            return render(request,'m_login.html')
-    
-    
-def m_home(request):
-    return render(request,'m_home.html')
-
-def m_profile(request):
-    name=request.session['m_name']
-    print('name is',name)
-    cr=member.objects.get(name=name)
-    if cr:
-        user_info={
-            'name':cr.name,
-            'age':cr.age,
-            'gender':cr.gender,
-            'address':cr.address,
-            'state':cr.state,
-            'country':cr.country,
-            'email':cr.email,
-            'phone':cr.phone,
-            'password':cr.password,
-            }
-        return render(request,'m_profile.html',user_info)
-    else:
-        return render(request,'m_profile.html')
-
-def m_update(request):
-    name=request.session['m_name']
-    print('name is',name)
-    cr=member.objects.get(name=name)
-    if cr:
-        user_info={
-            'name':cr.name,
-            'age':cr.age,
-            'gender':cr.gender,
-            'address':cr.address,
-            'state':cr.state,
-            'country':cr.country,
-            'email':cr.email,
-            'phone':cr.phone,
-            'password':cr.password,
-            }
-        return render(request,'m_update.html',user_info)
-    else:
-        return render(request,'m_update.html')
-    
-def m_proupdate(request):
-    name=request.session['m_name']
-    if request.method=="POST":
-        name=request.POST.get('nametxt')
-        age=request.POST.get('agetxt')
-        gender=request.POST.get('gendertxt')
-        address=request.POST.get('addresstxt')
-        state=request.POST.get('statetxt')
-        country=request.POST.get('countrytxt')
-        email=request.POST.get('emailtxt')
-        phone=request.POST.get('phonetxt')
-        password=request.POST.get('passwordtxt')
-        
-        data=member.objects.get(name=name)
-        data.name=name
-        data.age=age
-        data.gender=gender
-        data.address=address
-        data.state=state
-        data.country=country
-        data.email=email
-        data.phone=phone
-        data.password=password
-        data.save()
-        return redirect('m_home')
-    else:
-        return render(request,'m_update.html')
-
-def m_list(request):
-    data=member.objects.all()
-    return render(request,'m_list.html',{'data':data})
-
 def u_list(request):
     data=reg.objects.all()
     return render(request,'u_list.html',{'data':data})

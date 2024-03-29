@@ -18,7 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('contact/',views.contact,name='contact'),
     path('about/',views.about,name='about'),
@@ -48,14 +48,6 @@ urlpatterns = [
     path('co_profile/',views.co_profile,name='co_profile'),
     path('co_update/',views.co_update,name='co_update'),
     path('co_proupdate/',views.co_proupdate,name='co_proupdate'),
-
-    path('m_reg/',views.m_reg,name='m_reg'),
-    path('m_login/',views.m_login,name='m_login'),
-    path('m_profile/',views.m_profile,name='m_profile'),
-    path('m_update/',views.m_update,name='m_update'),
-    path('m_proupdate/',views.m_proupdate,name='m_proupdate'),
-    path('m_list/',views.m_list,name='m_list'),
-    path('m_home/',views.m_home,name='m_home'),
 
     path('worklist/',views.worklist,name='worklist'),
     path('work/',views.work,name='work'),

@@ -249,7 +249,6 @@ input[type="email"] {
                             <div class="dropdown-menu m-0">
                                 <a href="{% url 'login' %}" class="dropdown-item">User</a>
                                 <a href="{% url 'co_login' %}" class="dropdown-item">Coordinator</a>
-                                <a href="{% url 'm_login' %}" class="dropdown-item">Member</a>
                                 <a href="{% url 'adlogin' %}" class="dropdown-item">Admin</a>
                             </div>
                         </div>-->
@@ -277,32 +276,12 @@ input[type="email"] {
             <label for="psw">Password</label>
             <input type="password" id="psw" name="psw" placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
+            <label for="address"><b>Address</b></label>
+            <input type="text" placeholder="Enter Address" name="address"  required>
+
             <label for="phone"><b>Phone Number</b></label>
             <input type="tel" id="contact" pattern="[0-9]{10}" title="Please Enter a valid 10-digit phone number" name="phone" placeholder="Mobile Number" required>
 
-            <label for="country"><b>Ward</b></label>
-            <select class="login-input" name="ward" required>
-                <option value="" disabled selected>Select your ward</option>
-                <option value="Ward 1">Ward 1</option>
-                <option value="Ward 2">Ward 2</option>
-                <option value="Ward 3">Ward 3</option>
-                <option value="Ward 4">Ward 4</option>
-                <option value="Ward 5">Ward 5</option>
-                <option value="Ward 6 ">Ward 6</option>
-                <option value="Ward 7">Ward 7</option>
-                <option value="Ward 8">Ward 8</option>
-                <option value="Ward 9">Ward 9</option>
-                <option value="Ward 10">Ward 10</option>
-                <option value="Ward 11">Ward 11</option>
-                <option value="Ward 12">Ward 12</option>
-                <option value="Ward 13">Ward 13</option>
-                <option value="Ward 14">Ward 14</option>
-                <option value="Ward 15">Ward 15</option>
-                <option value="Ward 16">Ward 16</option>
-                <option value="Ward 17">Ward 17</option>
-                <option value="Ward 18">Ward 18</option>
-               
-            </select>
 
             <div class="clearfix">
                 <input type="submit" name="register" value="Register">
