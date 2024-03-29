@@ -138,7 +138,7 @@
 	<section class="login">
 		<div class="login_box">
 			<div class="left">
-				<div class="top_link"><a href="#"><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download" alt="">Return home</a></div>
+				<div class="top_link"><a href="{% url 'index' %}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABnUlEQVR4nO2WzSsFURjGfyRSvlIsZGHHRtnYKQul7OzYsbK240+wtbS1UkpKllIXKZGVjWxsJFKU7sLXq6lzbtPp3u7MNXfOmbxPPTU1zTnv733nPDOgSqQR4Ng4ui6k5oAXQIxfgXkKpBZgDfiOQVj/ABtAK4GrB9irAuD6EOgnUE0AdwkgrO+BSWcNqeHctASUU0BYl82zVqvAhw+QDmCzAQDX20CnWXMKeMgTZBg4zwDC+ioW0QPAUR4g08BjhhDWz8Cs2aPNJFyUdE2L1q8mQFhHa6+bvSItZA3RDew2EcD1AdCXNcQYcJMjhBjfAuNZQSwC7x4gJBbRy38BsIdNAvEW0J4WYtCJv1B8Cgwlhaj2QQrJT8BMPYiVGr8IofnTfAZsRFfUBewEUKCk9D7QGwe5MDfeAihOEtrWGtVe0RlwDYwGUKAkdFTrJVCqdU6kIK4r3wWKgjjy3WnRiTjy3WnRiTjy3WkJYSJppSD47pJOBD0j6KuVQppa+O6STgRNLfTVSiFNLXx3SSfCP06tkwKAlBrYS6WiAf0C5nGBCW1kgjgAAAAASUVORK5CYII=">Return home</a></div>
 				<div class="contact">
 					<form action="/login/" method="post">
                         {% csrf_token %}
