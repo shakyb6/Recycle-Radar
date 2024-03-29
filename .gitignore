@@ -88,3 +88,4 @@ local_settings.py
 .env
 db.sqlite3
 main/migrations/0028_delete_member_remove_assign_ward_remove_reg_ward_and_more.py
+main/__pycache__/views.cpython-312.pyc

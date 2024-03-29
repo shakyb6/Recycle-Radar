@@ -32,31 +32,11 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid px-5 d-none d-lg-block">
-        <div class="row gx-5 py-3 align-items-center">
-            <!-- <div class="col-lg-3">
-                <div class="d-flex align-items-center justify-content-start">
-                    <i class="bi bi-phone-vibrate fs-1 text-primary me-2"></i>
-                    <h2 class="mb-0">+012 345 6789</h2>
-                </div>
-            </div> -->
-            <div class="col-lg-6">
-                <div class="d-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand ms-lg-5">
-                        <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Haritha</span>Karma</h1>
-                    </a>
-                </div>
-            </div>
-            <!-- <div class="col-lg-3">
-                <div class="d-flex align-items-center justify-content-end">
-                    <a class="btn btn-primary btn-square rounded-circle me-2" href="/uprofile/"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-primary btn-square rounded-circle" href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div> -->
-        </div>
-    </div>
+{% block topbar %}
+
+{% include 'topbar.html' %}
+
+{% endblock topbar %}
     <!-- Topbar End -->
 
 
@@ -70,10 +50,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="{% url 'index'%}" class="nav-item nav-link active">Home</a>
+                <a href="{% url 'index'%}" class="nav-item nav-link ">Home</a>
                 <a href="{% url 'about'%}" class="nav-item nav-link">About</a>
-                <a href="/usprofile/" class="nav-item nav-link active">My Account</a>
-                <a href="/date/" class="nav-item nav-link">West Collection Date</a>
+                <a href="/usprofile/" class="nav-item nav-link ">My Account</a>
+                <a href="/date/" class="nav-item nav-link">Waste Collection Date</a>
                 <a href="/ucomplaint/" class="nav-item nav-link">FeedBack</a>
                 <a href="/ucomlist/" class="nav-item nav-link">Reviews</a>
 
