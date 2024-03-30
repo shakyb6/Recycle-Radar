@@ -43,7 +43,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
         <a href="index.html" class="navbar-brand d-flex d-lg-none">
-            <h1 class="m-0 display-4 text-secondary"><span class="text-white">Haritha</span>Karma</h1>
+            <h1 class="m-0 display-4 text-secondary"><span class="text-white">Recycle</span>Radar</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -53,7 +53,7 @@
                 <a href="{% url 'index'%}" class="nav-item nav-link ">Home</a>
                 <a href="{% url 'about'%}" class="nav-item nav-link">About</a>
                 <a href="/usprofile/" class="nav-item nav-link ">My Account</a>
-                <a href="/date/" class="nav-item nav-link">Waste Collection Date</a>
+                <a href="{% url 'mybookings' %}" class="nav-item nav-link">My Bookings</a>
                 <a href="/ucomplaint/" class="nav-item nav-link">FeedBack</a>
                 <a href="/ucomlist/" class="nav-item nav-link">Reviews</a>
 
@@ -83,14 +83,14 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img class="w-100" src="{% static 'img/a.jpg' %}" alt="Image">
-                    <!-- <div class="carousel-caption top-0 bottom-0 start-0 end-0 d-flex flex-column align-items-center justify-content-center">
+                     <div class="carousel-caption top-0 bottom-0 start-0 end-0 d-flex flex-column align-items-center justify-content-center">
                         <div class="text-start p-5" style="max-width: 900px;">
                             <h3 class="text-white">Organic Vegetables</h3>
                             <h1 class="display-1 text-white mb-md-4">Organic Vegetables For Healthy Life</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Explore</a>
+                            <a href="{% url 'booknow'%}" class="btn btn-primary py-md-3 px-md-5 me-3">Book Now</a>
                             <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="carousel-item">
                     <img class="w-100" src="{% static 'img/c.jpg' %}" alt="Image">
@@ -98,7 +98,7 @@
                         <div class="text-start p-5" style="max-width: 900px;">
                             <!-- <h3 class="text-white">Organic Fruits</h3>
                             <h1 class="display-1 text-white mb-md-4">Organic Fruits For Better Health</h1> -->
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Explore</a>
+                            <a href="{% url 'booknow' %}" class="btn btn-primary py-md-3 px-md-5 me-3">Book Now</a>
                             <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>
                         </div>
                     </div>

@@ -36,12 +36,13 @@ class ufeedback(models.Model):
     email=models.EmailField()
     message=models.TextField()
 
-class update(models.Model):
+class booking(models.Model):
     # fname=models.CharField(max_length=30)
-    name=models.CharField(max_length=30)
+    owner=models.ForeignKey(reg,on_delete=models.CASCADE, related_name='bookings')
+    scrap_name=models.CharField(max_length=30)
+    scrap_quantity=models.IntegerField()
     date=models.DateField()
-    time=models.TimeField()
-    area=models.CharField(max_length=30)
+    location=models.CharField(max_length=30)
     description=models.CharField(max_length=30)
 
 class pay(models.Model):

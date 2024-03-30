@@ -8,8 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.http import Http404
 import smtplib
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import reg,coordinate,Assign,feedback,update,pay,ufeedback
+from .models import reg,coordinate,Assign,feedback,booking,pay,ufeedback
 import razorpay #import this
 from django.conf import settings
 from django.http import JsonResponse #import this
@@ -126,6 +127,37 @@ def uspro(request):
         return redirect('home')
     else:
         return render(request,'usupdate.html')
+
+def booknow(request):
+    if 'username' in request.session:
+        username = request.session['username']
+        owner = reg.objects.get(username=username) 
+    if request.method=='POST':
+        scrap=request.POST.get('scrap')
+        quantity=request.POST.get('quantity')
+        date=request.POST.get('date')
+        location=request.POST.get('location')
+        description=request.POST.get('description')
+        booking(owner=owner,scrap_name=scrap,scrap_quantity=quantity,date=date,location=location,description=description).save()
+        return render(request,'home.html')
+    else:
+        return render(request,'booknow.html')
+    
+
+'''def mybookings(request):
+    data=booking.objects.all()
+    return render(request,'mybookings.html',{'data':data})'''
+
+@login_required
+def mybookings(request):
+    user_bookings = booking.objects.filter(owner=request.username)
+    return render(request, 'mybookings.html', {'data': user_bookings})
+
+
+def delete_booking(request,id):
+    data=booking.objects.get(id=id)
+    data.delete()
+    return render(request,'mybookings.html')
 
 
 def adlogin(request):
@@ -300,18 +332,7 @@ def complaintlist(request):
     data=feedback.objects.all()
     return render(request,'complaintlist.html',{'data':data})
 
-def updatework(request):
-    if request.method=='POST':
-        name=request.POST.get('name')
-        date=request.POST.get('date')
-        time=request.POST.get('time')
-        area=request.POST.get('area')
-        description=request.POST.get('description')
-        update(name=name,date=date,time=time,area=area,description=description).save()
-        return render(request,'m_home.html')
-    else:
-        return render(request,'updatework.html')
-    
+
 def w_list(request):
     data=update.objects.all()
     return render(request,'w_list.html',{'data':data})
@@ -327,7 +348,6 @@ def view(request):
     name=request.session['cname']
     data=update.objects.filter(fname=name)
     return render(request,'view.html',{'data':data})
-
 
 
 

@@ -56,11 +56,18 @@ urlpatterns = [
     path('complaint/',views.complaint,name='complaint'),
     path('complaintlist/',views.complaintlist,name='complaintlist'),
 
-    path('updatework/',views.updatework,name='updatework'),
+    path('booknow/',views.booknow,name='booknow'),
 
     path('w_list/',views.w_list,name='w_list'),
     path('listwork/',views.listwork,name='listwork'),
     path('view/',views.view,name='view'),
+
+    
+    path('mybookings/',views.mybookings,name='mybookings'),
+    path('delete/<int:id>',views.delete_booking,name="delete_booking"),
+
+
+
 
     path('listcoordinate/',views.listcoordinate,name='listcoordinate'),
     path('accept_user_booking/<int:id>',views.accept_user_booking, name='accept_user'),
