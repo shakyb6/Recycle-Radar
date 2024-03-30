@@ -1,7 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class reg(models.Model):
-    username=models.CharField(max_length=30)
+    username=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     email=models.CharField(max_length=30)
     psw=models.CharField(max_length=30)
     address=models.CharField(max_length=50)

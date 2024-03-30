@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.http import Http404
 import smtplib
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import reg,coordinate,Assign,feedback,booking,pay,ufeedback
 import razorpay #import this
@@ -17,6 +18,8 @@ from django.http import JsonResponse #import this
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt #import this
 from django.http import HttpResponseBadRequest #import this
+from django.contrib.auth import authenticate,login as auth_login,logout
+
 razorpay_client = razorpay.Client(
     auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 
@@ -38,126 +41,156 @@ def staffhome(request):
 # user side
 
 def register(request):
-    if request.method=="POST":
-        name=request.POST.get('username')
-        email=request.POST.get('email')
-        password=request.POST.get('psw')
-        address=request.POST.get('address')
-        phone=request.POST.get('phone')
-         # Check if a user with the provided username or email already exists
-        existing_user = reg.objects.filter(username=name).exists() or reg.objects.filter(email=email).exists()
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('psw')
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+
+        # Check if a user with the provided username or email already exists
+        existing_user = User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists()
         if existing_user:
             # If a user with the provided username or email already exists, handle accordingly
             # You can redirect the user to a different page or display an error message
             return render(request, "registration_error.html", {"message": "Username or email already exists"})
         else:
             # Create a new user instance and save it to the database
-            new_user = reg(username=name, email=email, psw=password, phone=phone, address=address)
-            new_user.save()
-            return redirect('login')
+            new_user = User.objects.create_user(username=username, email=email, password=password)
+            # Now, create a profile for the new user
+            new_profile = reg(username=new_user, email=email, psw=password, phone=phone, address=address)
+            new_profile.save()
+            return redirect('login')  # Redirect to the login page after successful registration
     else:
-        return render(request,"register.html")
+        return render(request, "register.html")
 
-def login(request):
-    if request.method=="POST":
-        username=request.POST.get('username')
-        psw = request.POST.get('psw')
-        cr = reg.objects.filter(username=username,psw=psw)
-        if cr:
-            userd =reg.objects.get(username=username,psw=psw)
-            id=userd.id
-            username=userd.username
-            psw=userd.psw
-            request.session['username']=username
-            return render(request,'home.html')
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('psw')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            # Authentication successful, log the user in
+            auth_login(request, user)
+            request.session['profile_id'] = user.profile.id
+            return redirect('home')  # Redirect to the homepage after login
         else:
-            
-            return render(request,'login.html')
+            # Authentication failed, display login page with error message
+            return render(request, 'login.html', {'error_message': 'Invalid username or password'})
     else:
-        return render(request,'login.html')
-    
- 
+        # Display the login page
+        return render(request, 'login.html')
+
+@login_required
 def usprofile(request):
-    username=request.session['username']
-    # print('name is',name)
-    cr=reg.objects.get(username=username)
-    if cr:
-        user_info={
-            'username':cr.username,
-            'email':cr.email,
-            'psw':cr.psw,
-            'address':cr.address,
-            'phone':cr.phone,
-                }
-        return render(request,'usprofile.html',user_info)
-    else:
-        return render(request,'usprofile.html')
-    
+    try:
+        # Get the reg object associated with the current user
+        current_user = request.user
+        cr = reg.objects.get(username=current_user)
+
+        user_info = {
+            'username': cr.username,
+            'email': cr.email,
+            'psw': cr.psw,
+            'address': cr.address,
+            'phone': cr.phone,
+        }
+        return render(request, 'usprofile.html', user_info)
+    except reg.DoesNotExist:
+        return render(request, 'usprofile.html')
+
+
+@login_required
 def usupdate(request):
-    username=request.session['username']
-    # print('name is',name)
-    cr=reg.objects.get(username=username)
-    if cr:
-        user_info={
-            'username':cr.username,
-            'email':cr.email,
-            'psw':cr.psw,
-            'address':cr.address,
-            'phone':cr.phone,
-                }
-        return render(request,'usupdate.html',user_info)
-    else:
-        return render(request,'usupdate.html')
-    
+    try:
+        # Get the reg object associated with the current user
+        current_user = request.user
+        cr = reg.objects.get(username=current_user)
+
+        user_info = {
+            'username': cr.username,
+            'email': cr.email,
+            'psw': cr.psw,
+            'address': cr.address,
+            'phone': cr.phone,
+        }
+        return render(request, 'usupdate.html', user_info)
+    except reg.DoesNotExist:
+        return render(request, 'usupdate.html')
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .models import reg
+
+@login_required
 def uspro(request):
-    name=request.session['username']
-    if request.method=="POST":
-        name=request.POST.get('nametxt')
-        email=request.POST.get('emailtxt')
-        phone=request.POST.get('phonetxt')
-        address=request.POST.get('addresstxt')
-        password=request.POST.get('pswtxt')
-        data=reg.objects.get(username=name)
-        data.username=name
-        data.email=email
-        data.phone=phone
-        data.address=address
-        data.psw=password
-        data.save()
-        return redirect('home')
-    else:
-        return render(request,'usupdate.html')
+    try:
+        current_user = request.user
+        cr = current_user.profile
 
+        if request.method == "POST":
+            name = request.POST.get('nametxt')
+            email = request.POST.get('emailtxt')
+            phone = request.POST.get('phonetxt')
+            address = request.POST.get('addresstxt')
+            password = request.POST.get('pswtxt')
+            
+            # Update user information
+            cr.email = email
+            cr.phone = phone
+            cr.address = address
+            cr.psw = password  # Assuming psw field is in the reg model
+            cr.save()
+            return redirect('home')
+        else:
+            return render(request, 'usupdate.html')
+    except reg.DoesNotExist:
+        # Handle the case where the user does not exist in the database
+        return render(request, 'usupdate.html')
+
+
+
+
+
+
+
+
+@login_required
 def booknow(request):
-    if 'username' in request.session:
-        username = request.session['username']
-        owner = reg.objects.get(username=username) 
-    if request.method=='POST':
-        scrap=request.POST.get('scrap')
-        quantity=request.POST.get('quantity')
-        date=request.POST.get('date')
-        location=request.POST.get('location')
-        description=request.POST.get('description')
-        booking(owner=owner,scrap_name=scrap,scrap_quantity=quantity,date=date,location=location,description=description).save()
-        return render(request,'home.html')
-    else:
-        return render(request,'booknow.html')
-    
+    if request.method == 'POST':
+        user = request.user  # Get the currently logged-in user
+        scrap = request.POST.get('scrap')
+        quantity = request.POST.get('quantity')
+        date = request.POST.get('date')
+        location = request.POST.get('location')
+        description = request.POST.get('description')
 
-'''def mybookings(request):
-    data=booking.objects.all()
-    return render(request,'mybookings.html',{'data':data})'''
+        # Get the reg object associated with the current user
+        owner = reg.objects.get(username=user)
+
+        # Create a booking instance for the current user
+        booking.objects.create(owner=owner, scrap_name=scrap, scrap_quantity=quantity, date=date, location=location, description=description)
+        
+        return redirect('home')  # Redirect to the home page after booking
+        
+    else:
+        return render(request, 'booknow.html')
 
 @login_required
 def mybookings(request):
-    user_bookings = booking.objects.filter(owner=request.username)
+    # Get the reg object associated with the current user
+    owner = request.user.profile  # Assuming 'profile' is the related name in your OneToOneField
+    
+    # Filter bookings based on the current user's reg object
+    user_bookings = booking.objects.filter(owner=owner)
+    
     return render(request, 'mybookings.html', {'data': user_bookings})
 
 
 def delete_booking(request,id):
     data=booking.objects.get(id=id)
     data.delete()
-    return render(request,'mybookings.html')
+    return render(request,'home.html')
 
 
 def adlogin(request):
