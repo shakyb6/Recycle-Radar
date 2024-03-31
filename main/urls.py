@@ -22,8 +22,13 @@ urlpatterns = [
     path('',views.index,name='index'),
     path('contact/',views.contact,name='contact'),
     path('about/',views.about,name='about'),
+    path('uabout/',views.about,name='uabout'),
+    path('ucontact/',views.about,name='ucontact'),
     path('service/',views.service,name='service'),
     path('logout/', views.logout_view, name='logout'),
+    path('price/', views.price_list, name='price'),
+    path('uprice/', views.price_list, name='uprice'),
+
 
     path('home/',views.home,name='home'),
 

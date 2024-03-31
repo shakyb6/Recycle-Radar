@@ -42,11 +42,34 @@
 
 
     <!-- Navbar Start -->
-    {% block navbar %}
-
-    {% include 'navbar.html' with about_active="active" %}
- 
-    {% endblock navbar %}
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
+        <a href="index.html" class="navbar-brand d-flex d-lg-none">
+            <h1 class="m-0 display-4 text-secondary"><span class="text-white">Recycle</span>Radar</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto py-0">
+                <a href="{% url 'home'%}" class="nav-item nav-link ">Home</a>
+                <a href="{% url 'about'%}" class="nav-item nav-link active">About</a>
+                <a href="/usprofile/" class="nav-item nav-link ">My Account</a>
+                <a href="{% url 'mybookings' %}" class="nav-item nav-link">My Bookings</a>
+                <a href="/ucomplaint/" class="nav-item nav-link">Feedback</a>
+                <a href="/ucomlist/" class="nav-item nav-link">Reviews</a>
+                <a href="{% url 'contact'%}" class="nav-item nav-link">Contact</a>
+                <a href="{% url 'logout'%}" class="nav-item nav-link">LogOut</a>
+            </div>
+            <div class="navbar-nav ml-auto align-items-center"> <!-- Align items to the right -->
+                <img src="{% static 'img/user.svg' %}" class="mr-3"> <!-- Margin added to the right -->
+                <a href="{% url 'usprofile'%}" class="nav-link">{{ username }}</a>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <!-- Navbar End -->
     <!-- Navbar End -->
 
 

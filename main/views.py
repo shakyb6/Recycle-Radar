@@ -30,18 +30,27 @@ def index(request):
 
 def contact(request):
     if request.user.is_authenticated:
-         return redirect('ucontact')  # Redirect to adabout if user is logged in
+         username = request.user.username
+         return render(request, 'ucontact.html',{'username': username})  # Redirect to adabout if user is logged in
     else:
         return render(request, 'contact.html')
 
 def about(request):
     if request.user.is_authenticated:
-        return redirect('uabout')  # Redirect to adabout if user is logged in
+        username = request.user.username
+        return render(request,'uabout.html',{'username': username})  # Redirect to adabout if user is logged in
     else:
         return render(request, 'about.html')
     
 def service(request):
     return render(request,'service.html')
+
+def price_list(request):
+    if request.user.is_authenticated:
+         username = request.user.username
+         return render(request, 'uprice.html',{'username': username})  # Redirect to adabout if user is logged in
+    else:
+        return render(request, 'price.html')
 
 def service(request):
     if request.user.is_authenticated:

@@ -51,7 +51,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="{% url 'home'%}" class="nav-item nav-link ">Home</a>
+                <a href="{% url 'home'%}" class="nav-item nav-link active">Home</a>
                 <a href="{% url 'about'%}" class="nav-item nav-link">About</a>
                 <a href="/usprofile/" class="nav-item nav-link ">My Account</a>
                 <a href="{% url 'mybookings' %}" class="nav-item nav-link">My Bookings</a>
@@ -82,7 +82,7 @@
                         <h3 class="text-white">RecycleRadar</h3>
                         <h1 class="display-1 text-white mb-md-4">Turning Waste into Worth</h1>
                         <a href="{% url 'booknow'%}" class="btn btn-primary py-md-3 px-md-5 me-3">Book Now</a>
-                        <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>
+                        <a href="{% url 'uprice'%}" class="btn btn-secondary py-md-3 px-md-5">Scrap price list</a>
                     </div>
                 </div>
             </div>
@@ -92,8 +92,8 @@
                     <div class="text-start p-5" style="max-width: 900px;">
                         <h3 class="text-white">RecycleRadar</h3>
                         <h1 class="display-1 text-white mb-md-4">Turning Waste into Worth</h1>
-                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Explore</a>
-                        <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>
+                        <a href="{% url 'booknow'%}" class="btn btn-primary py-md-3 px-md-5 me-3">Book Now</a>
+                        <a href="{% url 'uprice'%}" class="btn btn-secondary py-md-3 px-md-5">Scrap price list</a>
                     </div>
                 </div>
             </div>
@@ -480,7 +480,7 @@
     </div>
     <div class="container-fluid bg-dark text-white py-4">
         <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-secondary fw-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed by <a class="text-secondary fw-bold" href="https://htmlcodex.com">HTML Codex</a></p>
+            <p class="mb-0">&copy; <a class="text-secondary fw-bold" href="#">RecycleRadar</a>. All Rights Reserved</p>
         </div>
     </div>
     <!-- Footer End -->
