@@ -54,24 +54,12 @@
         <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="{% static 'img/c.jpg' %}" alt="Image">
+                    <img class="w-100" src="{% static 'img/n.jpg' %}" alt="Image">
                     <div class="carousel-caption top-0 bottom-0 start-0 end-0 d-flex flex-column align-items-center justify-content-center">
-                        <!-- <div class="text-start p-5" style="max-width: 900px;">
-                            <h3 class="text-white">Organic Vegetables</h3>
-                            <h1 class="display-1 text-white mb-md-4">Organic Vegetables For Healthy Life</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Explore</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>
-                        </div> -->
-                        <div class="container py-5">
-                            <div class="row justify-content-start">
-                                <div class="col-lg-8 d-flex justify-content-between">
-                                    <h1 class="display-1 text-white mb-md-4">Our Services</h1>
-                                    <div>
-                                        <a href="{% url 'index'%}" class="btn btn-primary py-md-3 px-md-5 me-3">Home</a>
-                                        <a href="{% url 'service'%}" class="btn btn-secondary py-md-3 px-md-5">Services</a>
-                                    </div>
-                                </div>
-                            </div>
+                         <div class="text-start p-5" style="max-width: 900px;">
+                            <h1 class="display-1 text-white mb-md-4">Our Services</h1>
+                            <a href="{% url 'index'%}" class="btn btn-primary py-md-3 px-md-5 me-3">Home</a>
+                            <a href="{% url 'service'%}" class="btn btn-secondary py-md-3 px-md-5">Services</a>
                         </div>
                     </div>
                 </div>
@@ -90,45 +78,54 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <h6 class="text-primary text-uppercase">Services</h6>
-                        <h1 class="display-5">. CBO Strengthening Programmes</h1>
+                        <h1 class="display-5">RecycleRadar Services</h1>
                     </div>
-                    <p class="mb-4">Kudumbashree has a huge, distinctive CBO network. To attain the annual targets and goals set by Mission in a time bound manner, every member of the community network system has to be sensitised about Kudumbashree Programmes. This is difficult to achieve on account of the sheer numbers involved. Kudumbashree is also engaged in the implementation of various poverty eradication programmes and of socio-economic, developmental programmes of LSGs and Government departments through the community network. It is therefore necessary to augment and improve the skills and knowledge of Kudumbashree net work leaders, office bearers, elected representatives, entrepreneurs, line department officials, resource persons etc for a better social engineering and development process. For making the network system more vibrant and cohesive, special programmes and campaign drives have to be conducted from time to time depending on the specific requirement of the circumstances.</p>
+                    <p class="mb-4">Tempor erat elitr at rebum at at clita. Diam dolor diam ipsum et tempor sit. Clita erat ipsum et lorem et sit sed stet labore</p>
                     <a href="" class="btn btn-primary py-md-3 px-md-5">Contact Us</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    {% comment %} <div class="service-item bg-light text-center p-5">
-                        <i class="fa fa-carrot display-1 text-primary mb-3"></i>
-                        <h4>Fresh Vegetables</h4>
-                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
+                    <div class="service-item bg-light text-center p-5">
+                        <img src="{% static 'img/residential.png' %}" style="max-width: 100%; height: auto; width: 150px;">
+                        <h4>Residential Scrap Removal</h4>
+                        <p class="mb-0">RecycleRadar Residential Scrap Removal is your premier choice for hassle-free scrap removal.
+                            Use our user-friendly website to book a scrap removal appointment effortlessly.
+                            Count on our skilled and friendly team to arrive promptly at your doorstep.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item bg-light text-center p-5">
+                        <img src="{% static 'img/comm.png' %}" style="max-width: 100%; height: auto; width: 150px;">
+                        <h4>Commercial Scrap Removal</h4>
+                        <p class="mb-0">Is the accumulation of old junk and scraps hindering your workspace efficiency?
+                            Schedule an appointment, send in pictures of your scrap. We will analyse and send in a quick estimate. Our team is committed to efficient and professional removal of clutter, guaranteeing a seamless experience for your business.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item bg-light text-center p-5">
-                        <i class="fa fa-apple-alt display-1 text-primary mb-3"></i>
-                        <h4>Fresh Fruits</h4>
-                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
+                        <img src="{% static 'img/bulk.png' %}" style="max-width: 100%; height: auto; width: 150px;">
+                        <h4>Bulk Waste Generator </h4>
+                        <p class="mb-0">BWG offers a convenient solution for those classified as "Bulk Waste Generators" under the 2016 Solid Waste Management Rules. Whether you're a residential space, hotel, shopping mall, educational institution, or commercial asset, you can now streamline your waste management from a central hub. Aaakris BWG simplifies the collection and swift disposal into recycling channels, ensuring a sustainable waste management process.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item bg-light text-center p-5">
-                        <i class="fa fa-dog display-1 text-primary mb-3"></i>
-                        <h4>Healty Cattle</h4>
-                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
+                        <img src="{% static 'img/bulk.png' %}" style="max-width: 100%; height: auto; width: 150px;">
+                        <h4>Recycling Marketplacer </h4>
+                        <p class="mb-0">Marketplace by RecycleRadar is an online platform where buyers and sellers in the scrap industry can connect and trade. Our mission is to maximize the value of scrap materials, fostering reuse and recycling to enhance efficiency. By transforming one company's waste into another's resource, we create economic opportunities for both parties
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item bg-light text-center p-5">
-                        <i class="fa fa-tractor display-1 text-primary mb-3"></i>
-                        <h4>Modern Truck</h4>
-                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
+                        <img src="{% static 'img/recycle.png' %}" style="max-width: 100%; height: auto; width: 150px;">
+                        <h4>EPR Loop</h4>
+                        <p class="mb-0">RecycleRadar's EPR loop allows industries to check if their products have been channeled back into recycling or upcycling streams helping them to reduce their carbon footprint. EPR Loop's innovative process allows the companies to earn green points.
+                        </p>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-light text-center p-5">
-                        <i class="fa fa-seedling display-1 text-primary mb-3"></i>
-                        <h4>Farming Plans</h4>
-                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
-                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
