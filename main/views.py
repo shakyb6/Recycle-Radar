@@ -27,16 +27,32 @@ razorpay_client = razorpay.Client(
 
 def index(request):
     return render(request,'index.html')
+
 def contact(request):
-    return render(request,'contact.html')
+    if request.user.is_authenticated:
+         return redirect('ucontact')  # Redirect to adabout if user is logged in
+    else:
+        return render(request, 'contact.html')
+
 def about(request):
-    return render(request,'about.html')
+    if request.user.is_authenticated:
+        return redirect('uabout')  # Redirect to adabout if user is logged in
+    else:
+        return render(request, 'about.html')
+    
 def service(request):
     return render(request,'service.html')
 
+def service(request):
+    if request.user.is_authenticated:
+        return redirect('uservice')  # Redirect to uservice if user is logged in
+    else:
+        return render(request, 'service.html')
+
 @login_required
 def home(request):
-    return render(request,'home.html')
+    username = request.user.username
+    return render(request,'home.html', {'username': username})
 
 def staffhome(request):
     return render(request,'staffhome.html')
@@ -88,6 +104,7 @@ def logout_view(request):
     auth_logout(request)
     # Redirect to a desired page after logout
     return redirect('index')  # Redirect to the home page after logout
+
 
 
 @login_required

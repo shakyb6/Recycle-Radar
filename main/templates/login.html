@@ -4,6 +4,11 @@
             img{
 	width: 100%;
 }
+.error-message {
+    margin-top: 145px; /* Adjust as needed */
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+}
 .login {
     height: 1000px;
     width: 100%;
@@ -147,6 +152,9 @@
 						<input type="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="ENTER PASSWORD" name="psw">
 						<input type="submit" value="login">
 					</form>
+          {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
 				</div>
 			</div>
 			<div class="right">

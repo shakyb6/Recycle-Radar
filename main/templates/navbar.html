@@ -14,7 +14,7 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register</a>
                 <div class="dropdown-menu m-0">
-                    <a href="/register" class="dropdown-item">User</a>
+                    <a href="{% url 'register'%}" class="dropdown-item">User</a>
                     <!-- <a href="/staffreg/" class="dropdown-item">Employee Register</a> -->
                     <!-- <a href="/owreg/" class="dropdown-item">Owner Register</a> -->
 
@@ -26,8 +26,8 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
                 <div class="dropdown-menu m-0">
-                    <a href="/login/" class="dropdown-item">User</a>
-                    <a href="/adlogin/" class="dropdown-item">Admin</a>
+                    <a href="{% url 'login'%}" class="dropdown-item">User</a>
+                    <a href="{% url 'adlogin'%}" class="dropdown-item">Admin</a>
 
 
                     <!-- <a href="feature.html" class="dropdown-item">Features</a> -->

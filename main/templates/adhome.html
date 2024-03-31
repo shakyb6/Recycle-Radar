@@ -39,8 +39,6 @@
     {% endblock topbar %}
     <!-- Topbar End -->
 
-
-    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
         <a href="index.html" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary"><span class="text-white">Recycle</span>Radar</h1>
@@ -52,42 +50,19 @@
             <div class="navbar-nav mx-auto py-0">
                 <a href="{% url 'adhome'%}" class="nav-item nav-link ">Home</a>
                 <a href="{% url 'about'%}" class="nav-item nav-link">About</a>
-                <a href="{% url 'service'%}" class="nav-item nav-link">Service</a>
-                <!-- <a href="product.html" class="nav-item nav-link">Product</a> -->
                 <a href="/u_list/" class="nav-item nav-link">Users</a>
-
+                <a href="/ucomlist/" class="nav-item nav-link">Reviews</a>
                 <a href="{% url 'adbooking'%}" class="nav-item nav-link">Bookings</a>
-
-
-
-
-                <!-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="/register/" class="dropdown-item">User Register</a>
-                        <a href="/staffreg/" class="dropdown-item">Employee Register</a>
-                        <a href="/owreg/" class="dropdown-item">Owner Register</a> -->
-                        <!-- <a href="team.html" class="dropdown-item">The Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a> -->
-                    <!-- </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="/login/" class="dropdown-item">User Login</a>
-                        <a href="/stafflogin/" class="dropdown-item">Employee Login</a>
-                        {% comment %} <a href="feature.html" class="dropdown-item">Features</a>
-                        <a href="team.html" class="dropdown-item">The Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a> {% endcomment %}
-                    </div>
-                </div> -->
                 <a href="{% url 'contact'%}" class="nav-item nav-link">Contact</a>
                 <a href="{% url 'logout'%}" class="nav-item nav-link ">LogOut</a>
-
+            </div>
+            <div class="navbar-nav ml-auto align-items-center"> <!-- Align items to the right -->
+                <img src="{% static 'img/user.svg' %}" class="mr-3"> <!-- Margin added to the right -->
+                <a class="nav-link">Admin</a>
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
+
 
 
     <!-- Carousel Start -->

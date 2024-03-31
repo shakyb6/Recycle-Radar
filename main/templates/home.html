@@ -28,6 +28,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0a783d87b0.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -50,30 +51,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="{% url 'index'%}" class="nav-item nav-link ">Home</a>
+                <a href="{% url 'home'%}" class="nav-item nav-link ">Home</a>
                 <a href="{% url 'about'%}" class="nav-item nav-link">About</a>
                 <a href="/usprofile/" class="nav-item nav-link ">My Account</a>
                 <a href="{% url 'mybookings' %}" class="nav-item nav-link">My Bookings</a>
-                <a href="/ucomplaint/" class="nav-item nav-link">FeedBack</a>
+                <a href="/ucomplaint/" class="nav-item nav-link">Feedback</a>
                 <a href="/ucomlist/" class="nav-item nav-link">Reviews</a>
-
-
-                <!-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Account</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="/uprofile/" class="dropdown-item">My Account</a>
-                        <a href="detail.html" class="dropdown-item">Blog Detail</a>
-                        <a href="feature.html" class="dropdown-item">Features</a>
-                        <a href="team.html" class="dropdown-item">The Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                    </div>
-                </div> -->
                 <a href="{% url 'contact'%}" class="nav-item nav-link">Contact</a>
                 <a href="{% url 'logout'%}" class="nav-item nav-link">LogOut</a>
-
+            </div>
+            <div class="navbar-nav ml-auto align-items-center"> <!-- Align items to the right -->
+                <img src="{% static 'img/user.svg' %}" class="mr-3"> <!-- Margin added to the right -->
+                <a href="{% url 'usprofile'%}" class="nav-link">{{ username }}</a>
             </div>
         </div>
     </nav>
+    
+    
     <!-- Navbar End -->
 
 
