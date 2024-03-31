@@ -173,7 +173,7 @@ h2 a {
         <td>{{i.location}}</td>
         <td>{{i.status}}</td>
         <td>{{i.description}}</td>
-        <td><a href="/accept_user_booking/{{i.owner.id}}" onclick="return confirmAcceptance()">Accept</a></td>
+        <td><a href="/accept_user_booking/{{i.owner.id}}/{{i.id}}" onclick="return confirmAcceptance()">Accept</a></td>
         <td><a href="/delete/{{i.id}}" onclick="return confirmDelete()">Delete</a></td>
         <td><a href="/cancel/{{i.id}}" onclick="return confirmCancel()">Cancel</a></td>
         <td><a href="/"></a></td>

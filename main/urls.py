@@ -52,7 +52,7 @@ urlpatterns = [
     path('delete/<int:id>',views.delete_booking,name="delete_booking"),
     path('cancel/<int:id>',views.cancel_booking,name="cancel_booking"),
     path('cancel/<int:id>',views.ad_cancel_booking,name="cancel_booking"),
-    path('accept_user_booking/<int:id>',views.accept_user_booking, name='accept_user'),
+    path('accept_user_booking/<int:owner_id>/<int:booking_id>',views.accept_user_booking, name='accept_user'),
 
     path('date/',views.date,name='date'),
     path('payment/<int:tool_id>/', views.payment, name='payment'),

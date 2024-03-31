@@ -274,9 +274,9 @@ def ucomlist(request):
     data=ufeedback.objects.all()
     return render(request,'ucomlist.html',{'data':data})
 
-def accept_user_booking(request,id):
-    data=reg.objects.get(id=id)
-    data2=booking.objects.get(owner_id=id)
+def accept_user_booking(request,owner_id,booking_id):
+    data=reg.objects.get(id=owner_id)
+    data2=booking.objects.get(id=booking_id)
     if (data2.status=='Approved'):
         return HttpResponse('<script>alert("This booking has already been confirmed."); window.history.back();</script>')
     else:
