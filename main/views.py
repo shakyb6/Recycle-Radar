@@ -84,6 +84,11 @@ def login_view(request):
         # Display the login page
         return render(request, 'login.html')
 
+def logout_view(request):
+    auth_logout(request)
+    # Redirect to a desired page after logout
+    return redirect('index')  # Redirect to the home page after logout
+
 
 @login_required
 def usprofile(request):
@@ -229,21 +234,6 @@ def ad_delete_booking(request,id):
     data.delete()
     return render(request,'adhome.html')
 
-
-def work(request):
-    if request.method=='POST':
-        name=request.POST.get('name')
-        ward=request.POST.get('ward')
-        price=request.POST.get('price')
-        date=request.POST.get('date')
-        time=request.POST.get('time')
-        area=request.POST.get('area')
-        description=request.POST.get('description')
-        Assign(name=name,ward=ward,price=price,date=date,time=time,area=area,description=description).save()
-        return render(request,'co_home.html')
-    else:
-        return render(request,'work.html',{'name':name,'ward':ward})
-
 def ucomplaint(request):
     if request.method=='POST':
         name=request.POST.get('name')
@@ -257,25 +247,6 @@ def ucomplaint(request):
 def ucomlist(request):
     data=ufeedback.objects.all()
     return render(request,'ucomlist.html',{'data':data})
-
-def worklist(request):
-    name=request.session['m_name']
-    data = Assign.objects.filter(name=name)
-    return render(request,'worklist.html',{'data':data})
-    
-def complaint(request):
-    if request.method=='POST':
-        name=request.POST.get('name')
-        email=request.POST.get('email')
-        message=request.POST.get('message')
-        feedback(name=name,email=email,message=message).save()
-        return render(request,'m_home.html')
-    else:
-        return render(request,'complaint.html')
-    
-def complaintlist(request):
-    data=feedback.objects.all()
-    return render(request,'complaintlist.html',{'data':data})
 
 def accept_user_booking(request,id):
     data=reg.objects.get(id=id)
@@ -314,10 +285,6 @@ def complete_booking(request, id):
     data.save()
     return render(request, 'adhome.html')
 
-
-def listdate(request):
-    data=Assign.objects.all()
-    return render(request,'listdate.html',{'data':data})
 
 def date(request):
     data=Assign.objects.all()

@@ -23,6 +23,7 @@ urlpatterns = [
     path('contact/',views.contact,name='contact'),
     path('about/',views.about,name='about'),
     path('service/',views.service,name='service'),
+    path('logout/', views.logout_view, name='logout'),
 
     path('home/',views.home,name='home'),
 
@@ -31,10 +32,7 @@ urlpatterns = [
     path('ucomplaint/',views.ucomplaint,name='ucomplaint'),
     path('ucomlist/',views.ucomlist,name='ucomlist'),
     path('u_list/',views.u_list,name='u_list'),
-
-
-
-
+    
     path('usprofile/',views.usprofile,name='usprofile'),
     path('usupdate/',views.usupdate,name='usupdate'),
     path('uspro/',views.uspro,name='uspro'),
@@ -44,25 +42,13 @@ urlpatterns = [
     path('adbooking/',views.adminbookings,name='adbooking'),
     path('delete/<int:id>',views.ad_delete_booking,name="addelete_booking"),
 
-    path('worklist/',views.worklist,name='worklist'),
-    path('work/',views.work,name='work'),
-
-    path('complaint/',views.complaint,name='complaint'),
-    path('complaintlist/',views.complaintlist,name='complaintlist'),
-
     path('booknow/',views.booknow,name='booknow'),
-
-    
     path('mybookings/',views.mybookings,name='mybookings'),
     path('delete/<int:id>',views.delete_booking,name="delete_booking"),
     path('cancel/<int:id>',views.cancel_booking,name="cancel_booking"),
-
-
-
     path('cancel/<int:id>',views.ad_cancel_booking,name="cancel_booking"),
     path('accept_user_booking/<int:id>',views.accept_user_booking, name='accept_user'),
 
-    path('listdate/',views.listdate,name='listdate'),
     path('date/',views.date,name='date'),
     path('payment/<int:tool_id>/', views.payment, name='payment'),
     path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
