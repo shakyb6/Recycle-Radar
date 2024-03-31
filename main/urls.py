@@ -41,41 +41,26 @@ urlpatterns = [
  
     path('adlogin/',views.adlogin,name='adlogin'),
     path('adhome/',views.adhome,name='adhome'),
-
-    path('co_reg/',views.co_reg,name='co_reg'),
-    path('co_login/',views.co_login,name='co_login'),
-    path('co_home/',views.co_home,name='co_home'),
-    path('co_profile/',views.co_profile,name='co_profile'),
-    path('co_update/',views.co_update,name='co_update'),
-    path('co_proupdate/',views.co_proupdate,name='co_proupdate'),
+    path('adbooking/',views.adminbookings,name='adbooking'),
+    path('delete/<int:id>',views.ad_delete_booking,name="addelete_booking"),
 
     path('worklist/',views.worklist,name='worklist'),
     path('work/',views.work,name='work'),
-    path('aswork/<int:id>',views.aswork,name='aswork'),
 
     path('complaint/',views.complaint,name='complaint'),
     path('complaintlist/',views.complaintlist,name='complaintlist'),
 
     path('booknow/',views.booknow,name='booknow'),
 
-    path('w_list/',views.w_list,name='w_list'),
-    path('listwork/',views.listwork,name='listwork'),
-    path('view/',views.view,name='view'),
-
     
     path('mybookings/',views.mybookings,name='mybookings'),
     path('delete/<int:id>',views.delete_booking,name="delete_booking"),
+    path('cancel/<int:id>',views.cancel_booking,name="cancel_booking"),
 
 
 
-
-    path('listcoordinate/',views.listcoordinate,name='listcoordinate'),
+    path('cancel/<int:id>',views.ad_cancel_booking,name="cancel_booking"),
     path('accept_user_booking/<int:id>',views.accept_user_booking, name='accept_user'),
-    path('delete/<int:id>',views.delete,name="delete"),
-
-    path('listmember/',views.listmember,name='listmember'),
-    path('accept_user_booking1/<int:id>',views.accept_user_booking1, name='accept_user'),
-    path('delete1/<int:id>',views.delete1,name="delete"),
 
     path('listdate/',views.listdate,name='listdate'),
     path('date/',views.date,name='date'),

@@ -3,7 +3,7 @@ import email
 import smtplib
 import razorpay
 from django.conf import settings
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.http import Http404
@@ -11,14 +11,14 @@ import smtplib
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import reg,coordinate,Assign,feedback,booking,pay,ufeedback
+from .models import reg,Assign,feedback,booking,pay,ufeedback
 import razorpay #import this
 from django.conf import settings
 from django.http import JsonResponse #import this
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt #import this
 from django.http import HttpResponseBadRequest #import this
-from django.contrib.auth import authenticate,login as auth_login,logout
+from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
 
 razorpay_client = razorpay.Client(
     auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
@@ -33,8 +33,11 @@ def about(request):
     return render(request,'about.html')
 def service(request):
     return render(request,'service.html')
+
+@login_required
 def home(request):
     return render(request,'home.html')
+
 def staffhome(request):
     return render(request,'staffhome.html')
 
@@ -81,6 +84,7 @@ def login_view(request):
         # Display the login page
         return render(request, 'login.html')
 
+
 @login_required
 def usprofile(request):
     try:
@@ -118,10 +122,6 @@ def usupdate(request):
     except reg.DoesNotExist:
         return render(request, 'usupdate.html')
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .models import reg
-
 @login_required
 def uspro(request):
     try:
@@ -147,11 +147,6 @@ def uspro(request):
     except reg.DoesNotExist:
         # Handle the case where the user does not exist in the database
         return render(request, 'usupdate.html')
-
-
-
-
-
 
 
 
@@ -192,8 +187,16 @@ def delete_booking(request,id):
     data.delete()
     return render(request,'home.html')
 
+def cancel_booking(request, id):
+    data = booking.objects.get(id=id)
+    if (data.status=='Cancelled'):
+        return HttpResponse('<script>alert("This booking has already been Cancelled."); window.history.back();</script>')
+    data.status = 'Cancelled'
+    data.save()
+    return render(request, 'home.html')
 
-def adlogin(request):
+
+def adlogin(request):  #admin login details
     if request.method=='POST':
         name = request.POST.get('name')
         password = request.POST.get('password')
@@ -211,105 +214,20 @@ def adlogin(request):
     
 def adhome(request):
     return render(request,'adhome.html')
- 
-
-def co_reg(request):
-    if request.method=='POST':
-        fname=request.POST.get('fname')
-        lname=request.POST.get('lname')
-        email=request.POST.get('email')
-        phone=request.POST.get('phone')
-        pass1=request.POST.get('password1')
-        pass2=request.POST.get('password2')
-        gender=request.POST.get('gender')
-        coordinate(fname=fname,lname=lname,email=email,phone=phone,password1=pass1,password2=pass2,gender=gender).save()
-        return render(request,'co_login.html')
-    else:
-        return render(request,'co_reg.html')
-    
-
-def co_login(request):
-    if request.method=="POST":
-        fname=request.POST.get('fname')
-        # print(name)
-        password1 = request.POST.get('password1')
-        # print('joy')
-        cr = coordinate.objects.filter(fname=fname,password1=password1)
-        if cr:
-            userd =coordinate.objects.get(fname=fname,password1=password1)
-            id=userd.id
-            fname=userd.fname
-            password1=userd.password1
-            request.session['cname']=fname
-            return render(request,'co_home.html')
-        else:
-            
-            return render(request,'co_login.html')
-    else:
-        return render(request,'co_login.html')
-    
-def co_home(request):
-    return render(request,'co_home.html')
-
-def co_profile(request):
-    fname=request.session['cname']
-    print('name is',fname)
-    cr=coordinate.objects.get(fname=fname)
-    if cr:
-        user_info={
-            'fname':cr.fname,
-            'lname':cr.lname,
-            'email':cr.email,
-            'phone':cr.phone,
-            'password':cr.password1,
-            'gender':cr.gender,
-            }
-        return render(request,'co_profile.html',user_info)
-    else:
-        return render(request,'co_profile.html')
-    
-def co_update(request):
-    fname=request.session['cname']
-    print('name is',fname)
-    cr=coordinate.objects.get(fname=fname)
-    if cr:
-        user_info={
-            'fname':cr.fname,
-            'lname':cr.lname,
-            'email':cr.email,
-            'phone':cr.phone,
-            'password':cr.password1,
-            'gender':cr.gender,
-            }
-        return render(request,'co_update.html',user_info)
-    else:
-        return render(request,'co_update.html')  
-
-def co_proupdate(request):
-    fname=request.session['cname']
-    if request.method=="POST":
-        fname=request.POST.get('fnametxt')
-        lname=request.POST.get('lnametxt')
-        email=request.POST.get('emailtxt')
-        phone=request.POST.get('phonetxt')
-        password=request.POST.get('passwordtxt')
-        gender=request.POST.get('gendertxt')
-        data=coordinate.objects.get(fname=fname)
-        data.fname=fname
-        data.lname=lname
-        data.email=email
-        data.phone=phone
-        data.password1=password
-        data.gender=gender
-        data.save()
-        return redirect('co_home')
-    else:
-        return render(request,'co_update.html')
     
 def u_list(request):
     data=reg.objects.all()
     return render(request,'u_list.html',{'data':data})
 
+def adminbookings(request):
+    user_bookings = booking.objects.all()
+    
+    return render(request, 'adbooking.html', {'data': user_bookings})
+
+def ad_delete_booking(request,id):
+    data=booking.objects.get(id=id)
+    data.delete()
+    return render(request,'adhome.html')
 
 
 def work(request):
@@ -325,12 +243,6 @@ def work(request):
         return render(request,'co_home.html')
     else:
         return render(request,'work.html',{'name':name,'ward':ward})
-    
-def aswork(request,id):
-    cr=member.objects.get(id=id)
-    name=cr.name
-    ward=cr.ward
-    return render(request,'work.html',{'name':name,'ward':ward})
 
 def ucomplaint(request):
     if request.method=='POST':
@@ -341,10 +253,10 @@ def ucomplaint(request):
         return render(request,'home.html')
     else:
         return render(request,'ucomplaint.html')
+    
 def ucomlist(request):
     data=ufeedback.objects.all()
     return render(request,'ucomlist.html',{'data':data})
-
 
 def worklist(request):
     name=request.session['m_name']
@@ -365,81 +277,47 @@ def complaintlist(request):
     data=feedback.objects.all()
     return render(request,'complaintlist.html',{'data':data})
 
-
-def w_list(request):
-    data=update.objects.all()
-    return render(request,'w_list.html',{'data':data})
-
-def listwork(request):
-    # fname=request.session['cname']
-    data=member.objects.all()
-    return render(request,'listwork.html',{'data':data})
-
-
-
-def view(request):
-    name=request.session['cname']
-    data=update.objects.filter(fname=name)
-    return render(request,'view.html',{'data':data})
-
-
-
-
-
-
-def listcoordinate(request):
-    data=coordinate.objects.all()
-    return render(request,'listcoordinate.html',{'data':data})
-
 def accept_user_booking(request,id):
-    data=coordinate.objects.get(id=id)
-    emaill=data.email
-    print('email address',emaill)
-    print(emaill)
-    data.is_accepted = True
+    data=reg.objects.get(id=id)
+    data2=booking.objects.get(owner_id=id)
+    if (data2.status=='Approved'):
+        return HttpResponse('<script>alert("This booking has already been confirmed."); window.history.back();</script>')
+    else:
+        date=data2.date
+        date=str(date)
+        email=data.email
+        print('email address',email)
+        print(email)
+        data.is_accepted = True
+        data.save()
+        data2.status = 'Approved'
+        data2.save()
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.starttls()
+        s.login("nefsal003@gmail.com", "htxalvzrrkxupspv")
+        message = 'Your booking for scrap pickup scheduled on '+date+' is approved. The collection time will be approximately from 3 PM to 6 PM'
+        s.sendmail("nefsal003@gmail.com",email,message)
+        s.quit()
+        return render(request,'adhome.html')
+
+def ad_cancel_booking(request, id):
+    data = booking.objects.get(id=id)
+    if (data.status=='Cancelled'):
+        return HttpResponse('<script>alert("This booking has already been Cancelled."); window.history.back();</script>')
+    data.status = 'Cancelled'
     data.save()
-    s = smtplib.SMTP('smtp.gmail.com', 587)
-    s.starttls()
-    s.login("nefsal003@gmail.com", "htxalvzrrkxupspv")
-    message = 'You Selected in Post Of HarithaKarmaSena Coordinater'
-    s.sendmail("nefsal003@gmail.com",emaill,message)
-    s.quit()
-    return render(request,'adhome.html')
+    return render(request, 'adhome.html')
 
-def delete(request,id):
-    data=coordinate.objects.get(id=id)
-    data.delete()
-    return render(request,'adhome.html')
-
-
-def listmember(request):
-    data=member.objects.all()
-    return render(request,'listmember.html',{'data':data})
-
-def accept_user_booking1(request,id):
-    data=member.objects.get(id=id)
-    emaill=data.email
-    print('email address',emaill)
-    print(emaill)
-    data.is_accepted = True
+def complete_booking(request, id):
+    data = booking.objects.get(id=id)
+    data.status = 'Completed'
     data.save()
-    s = smtplib.SMTP('smtp.gmail.com', 587)
-    s.starttls()
-    s.login("nefsal003@gmail.com", "htxalvzrrkxupspv")
-    message = 'You Selected in Post Of HarithaKarmaSena Member'
-    s.sendmail("nefsal003@gmail.com",emaill,message)
-    s.quit()
-    return render(request,'adhome.html')
+    return render(request, 'adhome.html')
 
-def delete1(request,id):
-    data=member.objects.get(id=id)
-    data.delete()
-    return render(request,'adhome.html')
 
 def listdate(request):
     data=Assign.objects.all()
     return render(request,'listdate.html',{'data':data})
-
 
 def date(request):
     data=Assign.objects.all()

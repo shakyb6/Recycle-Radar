@@ -50,15 +50,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="{% url 'index'%}" class="nav-item nav-link active">Home</a>
+                <a href="{% url 'adhome'%}" class="nav-item nav-link ">Home</a>
                 <a href="{% url 'about'%}" class="nav-item nav-link">About</a>
                 <a href="{% url 'service'%}" class="nav-item nav-link">Service</a>
                 <!-- <a href="product.html" class="nav-item nav-link">Product</a> -->
-                <a href="/listcoordinate/" class="nav-item nav-link">Coordinates</a>
                 <a href="/u_list/" class="nav-item nav-link">Users</a>
 
-                <a href="/w_list/" class="nav-item nav-link">View Works</a>
-                <a href="/listdate/" class="nav-item nav-link">Weste Collection Date</a>
+                <a href="{% url 'adbooking'%}" class="nav-item nav-link">Bookings</a>
 
 
 
@@ -84,7 +82,7 @@
                     </div>
                 </div> -->
                 <a href="{% url 'contact'%}" class="nav-item nav-link">Contact</a>
-                <a href="{% url 'index'%}" class="nav-item nav-link active">LogOut</a>
+                <a href="{% url 'index'%}" class="nav-item nav-link ">LogOut</a>
 
             </div>
         </div>

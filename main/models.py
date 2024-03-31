@@ -9,16 +9,6 @@ class reg(models.Model):
     phone=models.IntegerField()
 
 
-class coordinate(models.Model):
-    fname=models.CharField(max_length=30)
-    lname=models.CharField(max_length=30)
-    email=models.EmailField()
-    phone=models.IntegerField()
-    password1=models.CharField(max_length=30)
-    password2=models.CharField(max_length=30)
-    gender=models.CharField(max_length=30)
-
-
 class Assign(models.Model):
     name=models.CharField(max_length=10)
     price=models.CharField(max_length=30)
@@ -45,6 +35,16 @@ class booking(models.Model):
     date=models.DateField()
     location=models.CharField(max_length=30)
     description=models.CharField(max_length=30)
+    status_choices = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Cancelled', 'Cancelled'),
+        ('Completed', 'Completed'),
+    ]
+    status = models.CharField(max_length=20, choices=status_choices, default='Pending')
+
+    def __str__(self):
+        return f"{self.owner.username}'s booking for {self.scrap_name} on {self.date}"
 
 class pay(models.Model):
     name=models.CharField(max_length=30)

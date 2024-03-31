@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
   <script>
+    function confirmAcceptance() {
+        if (confirm("Are you sure you want to accept this booking?")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function confirmDelete() {
         if (confirm("Are you sure you want to Delete this booking?")) {
             return true;
@@ -141,14 +148,16 @@ h2 a {
 <table class="container">
 	<thead>
 		<tr>
-			<th><h1>Scrap</h1></th>
+            <th><h1>Username</h1></th>
+			<th><h1>Scrap Item</h1></th>
 			<th><h1>Quantity</h1></th>
 			<th><h1>Date</h1></th>
 			<th><h1>Location</h1></th>
+            <th><h1>Status</h1></th>
       <th><h1>Description</h1></th>
-      <th><h1>Status</h1></th>
-      <th><h1>Cancel</h1></th>
-			<th><h1>Delete</h1></th>
+      			<th><h1>Edit</h1></th>
+			<th><h1>Remove</h1></th>
+            <th><h1>Cancel</h1></th>
 
 
 
@@ -157,15 +166,17 @@ h2 a {
 	<tbody>
     {% for i in data %}
 		<tr>
-			<td>{{i.scrap_name}}</td>
+        <td>{{i.owner.username}}</td>
+		<td>{{i.scrap_name}}</td>
         <td>{{i.scrap_quantity}}</td>
         <td>{{i.date}}</td>
         <td>{{i.location}}</td>
-        <td>{{i.description}}</td>
         <td>{{i.status}}</td>
-        <td><a href="/cancel/{{i.id}}" onclick="return confirmCancel()">Cancel</a></td>
-
+        <td>{{i.description}}</td>
+        <td><a href="/accept_user_booking/{{i.owner.id}}" onclick="return confirmAcceptance()">Accept</a></td>
         <td><a href="/delete/{{i.id}}" onclick="return confirmDelete()">Delete</a></td>
+        <td><a href="/cancel/{{i.id}}" onclick="return confirmCancel()">Cancel</a></td>
+        <td><a href="/"></a></td>
 
       </tr>
       {% endfor %}
