@@ -186,21 +186,40 @@ def booknow(request):
     if request.method == 'POST':
         user = request.user  # Get the currently logged-in user
         scrap = request.POST.get('scrap')
-        quantity = request.POST.get('quantity')
+        quantity = float(request.POST.get('quantity'))  # Convert quantity to float
         date = request.POST.get('date')
         location = request.POST.get('location')
         description = request.POST.get('description')
 
+        # Prices of scraps per kg
+        scrap_prices = {
+            'newspaper': 10,
+            'books': 7,
+            'cardboard': 4,
+            'plastic_soft': 7,
+            'plastic_hard': 2,
+            'iron': 22,
+            'tin': 14,
+            'copper': 420,
+            'brass': 310,
+            'aluminium': 100,
+            'stainless_steel': 45,
+        }
+
         # Get the reg object associated with the current user
         owner = reg.objects.get(username=user)
 
+        # Calculate total price
+        total_price = quantity * scrap_prices.get(scrap, 0)  # If scrap not found, default to 0
+
         # Create a booking instance for the current user
-        booking.objects.create(owner=owner, scrap_name=scrap, scrap_quantity=quantity, date=date, location=location, description=description)
-        
+        booking.objects.create(owner=owner, scrap_name=scrap, scrap_quantity=quantity, date=date, location=location, description=description, price_per_kg=scrap_prices.get(scrap, 0), total_price=total_price )
+
         return redirect('home')  # Redirect to the home page after booking
-        
+
     else:
         return render(request, 'booknow.html')
+
 
 @login_required
 def mybookings(request):
@@ -211,7 +230,6 @@ def mybookings(request):
     user_bookings = booking.objects.filter(owner=owner)
     
     return render(request, 'mybookings.html', {'data': user_bookings})
-
 
 def delete_booking(request,id):
     data=booking.objects.get(id=id)
@@ -253,12 +271,17 @@ def u_list(request):
 def adminbookings(request):
     user_bookings = booking.objects.all()
     
-    return render(request, 'adbooking.html', {'data': user_bookings})
+    return render(request, 'adbooking.html', {'data': user_bookings })
 
 def ad_delete_booking(request,id):
     data=booking.objects.get(id=id)
     data.delete()
     return render(request,'adhome.html')
+
+def adpayment(request):
+    status='Approved'
+    accepted_bookings = booking.objects.filter(status=status)
+    return render(request, 'adpayment.html', {'data': accepted_bookings })
 
 def ucomplaint(request):
     if request.method=='POST':

@@ -105,6 +105,18 @@ input[type="Submit"]{
   cursor: pointer;
 
 }
+.top_link img {
+    width: 28px;
+    padding-right: 7px;
+    margin-top: -3px;
+}
+.left .top_link a {
+    color: #452A5A;
+    font-weight: 400;
+}
+.left .top_link{
+  height: 20px
+}
 
 input[type="Submit"]:hover{
   background: #2691d9;
@@ -136,7 +148,7 @@ input[type="Submit"]:hover{
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-repeat: no-repeat;
   background-size: cover;
   background: linear-gradient(120deg, #d3d9e0, #5b5757);
@@ -194,46 +206,60 @@ body {
           "<br>Longitude: " + position.coords.longitude;
         }
         </script>
-    <a href="/m_home/"  style="color: aliceblue;">Home</a>
+    <div class="top_link"><a href="{% url 'home' %}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABnUlEQVR4nO2WzSsFURjGfyRSvlIsZGHHRtnYKQul7OzYsbK240+wtbS1UkpKllIXKZGVjWxsJFKU7sLXq6lzbtPp3u7MNXfOmbxPPTU1zTnv733nPDOgSqQR4Ng4ui6k5oAXQIxfgXkKpBZgDfiOQVj/ABtAK4GrB9irAuD6EOgnUE0AdwkgrO+BSWcNqeHctASUU0BYl82zVqvAhw+QDmCzAQDX20CnWXMKeMgTZBg4zwDC+ioW0QPAUR4g08BjhhDWz8Cs2aPNJFyUdE2L1q8mQFhHa6+bvSItZA3RDew2EcD1AdCXNcQYcJMjhBjfAuNZQSwC7x4gJBbRy38BsIdNAvEW0J4WYtCJv1B8Cgwlhaj2QQrJT8BMPYiVGr8IofnTfAZsRFfUBewEUKCk9D7QGwe5MDfeAihOEtrWGtVe0RlwDYwGUKAkdFTrJVCqdU6kIK4r3wWKgjjy3WnRiTjy3WnRiTjy3WkJYSJppSD47pJOBD0j6KuVQppa+O6STgRNLfTVSiFNLXx3SSfCP06tkwKAlBrYS6WiAf0C5nGBCW1kgjgAAAAASUVORK5CYII=">Return home</a></div>
 
     <div class="container">
       <div class="center">
           <h1>Request Pickup</h1>
           <form method="POST" action="/booknow/">
-            {% csrf_token %}
+              {% csrf_token %}
+              <div class="form-group" style="display: flex; flex-wrap: wrap;">
+                <label style="flex: 0 0 100%;">Scrap you have:</label>
+                <div style="display: flex; flex-wrap: wrap; width: 100%;">
+                    <div style="flex: 0 0 50%;">
+                        <input type="radio" name="scrap" value="newspaper"> Newspaper<br>
+                        <input type="radio" name="scrap" value="books"> Books<br>
+                        <input type="radio" name="scrap" value="cardboard"> Cardboard<br>
+                        <input type="radio" name="scrap" value="plastic_soft"> Plastic (Soft)<br>
+                        <input type="radio" name="scrap" value="plastic_hard"> Plastic (Hard)<br>
+                        <input type="radio" name="scrap" value="stainless_steel"> Stainless Steel<br>
+                    </div>
+                    <div style="flex: 0 0 50%;">
+                        <input type="radio" name="scrap" value="iron"> Iron<br>
+                        <input type="radio" name="scrap" value="tin"> Tin<br>
+                        <input type="radio" name="scrap" value="copper"> Copper<br>
+                        <input type="radio" name="scrap" value="brass"> Brass<br>
+                        <input type="radio" name="scrap" value="aluminium"> Aluminium<br>
+                        <input type="radio" name="scrap" value="aluminium"> E-Waste<br>
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div class="txt_field">
-                  <input type="text" name="scrap" required>
+                  <input type="number" name="quantity" required>
                   <span></span>
-                  <label>Scrap you have</label>
+                  <label>Quantity(kg)</label>
               </div>
               <div class="txt_field">
-                <input type="number" name="quantity" required>
-                <span></span>
-                <label>Quantity</label>
-              </div>
-              <div class="txt_field">
+                  <label></label>
                   <input type="date" name="date" required>
                   <span></span>
-                   <label></label>
               </div>
               <div class="txt_field">
-                  <input type="text" name="location"  required>
+                  <input type="text" name="location" required>
                   <span></span>
                   <label>Location</label>
                   <button class="float-right" onclick="getLocation()">Your location</button>
-
               </div>
               <div class="txt_field">
-                <input type="text" name="description"  required>
-                <span></span>
-                <label>Description</label>
-            </div>
+                  <input type="text" name="description" required>
+                  <span></span>
+                  <label>Description</label>
+              </div>
               <input name="submit" type="Submit" value="Submit"><br>
-              <!-- <div class="signup_link">
-                  Have an Account ? <a href="loginForm.php">Login Here</a>
-              </div> -->
           </form>
       </div>
-  </div>
+  </div>  
   </body>
 </html>

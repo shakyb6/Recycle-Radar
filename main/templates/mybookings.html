@@ -142,10 +142,10 @@ h2 a {
 	<thead>
 		<tr>
 			<th><h1>Scrap</h1></th>
-			<th><h1>Quantity</h1></th>
+			<th><h1>Quantity(kg)</h1></th>
 			<th><h1>Date</h1></th>
 			<th><h1>Location</h1></th>
-      <th><h1>Description</h1></th>
+      <th><h1>Total Amount</h1></th>
       <th><h1>Status</h1></th>
       <th><h1>Cancel</h1></th>
 			<th><h1>Delete</h1></th>
@@ -161,7 +161,7 @@ h2 a {
         <td>{{i.scrap_quantity}}</td>
         <td>{{i.date}}</td>
         <td>{{i.location}}</td>
-        <td>{{i.description}}</td>
+        <td>{{i.total_price}}</td>
         <td>{{i.status}}</td>
         <td><a href="/cancel/{{i.id}}" onclick="return confirmCancel()">Cancel</a></td>
 

@@ -120,7 +120,7 @@ h2 a {
 }
   </style>
   <body>
-    <a href="/home/" style="color: beige;">Home</a>
+    <a href="/adhome/" style="color: beige;">Home</a>
   </body>
   <h1>WESTE COLLECTION DATE </h1>
 
@@ -128,13 +128,13 @@ h2 a {
 <table class="container">
 	<thead>
 		<tr>
-            <th><h1>Member Name</h1></th>
-			<th><h1>Ward</h1></th>
+      <th><h1>Username</h1></th>
+			<th><h1>Scrap Item</h1></th>
+			<th><h1>Quantity</h1></th>
 			<th><h1>Date</h1></th>
-			<th><h1>Area</h1></th>
-			<th><h1>Description</h1></th>
-			<th><h1>Price</h1></th>
-           <th><h1>Payment</h1></th>
+			<th><h1>Location</h1></th>
+            <th><h1>Total Amount</h1></th>
+      <th><h1>Payment</h1></th>
            
 
 
@@ -143,13 +143,14 @@ h2 a {
 	<tbody>
     {% for i in data %}
 		<tr>
-            <td>{{i.name}}</td>
-            <td>{{i.ward}}</td>
-			<td>{{i.date}}</td>
-			<td>{{i.area}}</td>
-			<td>{{i.description}}</td>
-			<td>{{i.price}}</td>
-            <td><a href="{% url 'payment' tool_id=i.id %}" class="buy" style="color: #A7A1AE;">Pay</a></td>
+        <td>{{i.owner.username}}</td>
+		    <td>{{i.scrap_name}}</td>
+        <td>{{i.scrap_quantity}}</td>
+        <td>{{i.date}}</td>
+        <td>{{i.location}}</td>
+        <td>{{i.total_price}}</td>
+        <td><a href="{% url 'payment' tool_id=i.id %}" class="buy" style="color: #A7A1AE;">Pay</a></td>
+        
       </tr>
       {% endfor %}
 		

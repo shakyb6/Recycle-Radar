@@ -41,18 +41,23 @@ urlpatterns = [
     path('usprofile/',views.usprofile,name='usprofile'),
     path('usupdate/',views.usupdate,name='usupdate'),
     path('uspro/',views.uspro,name='uspro'),
- 
-    path('adlogin/',views.adlogin,name='adlogin'),
-    path('adhome/',views.adhome,name='adhome'),
-    path('adbooking/',views.adminbookings,name='adbooking'),
-    path('delete/<int:id>',views.ad_delete_booking,name="addelete_booking"),
 
     path('booknow/',views.booknow,name='booknow'),
     path('mybookings/',views.mybookings,name='mybookings'),
     path('delete/<int:id>',views.delete_booking,name="delete_booking"),
     path('cancel/<int:id>',views.cancel_booking,name="cancel_booking"),
-    path('cancel/<int:id>',views.ad_cancel_booking,name="cancel_booking"),
+
+
+
     path('accept_user_booking/<int:owner_id>/<int:booking_id>',views.accept_user_booking, name='accept_user'),
+    path('adlogin/',views.adlogin,name='adlogin'),
+    path('adhome/',views.adhome,name='adhome'),
+    path('adbooking/',views.adminbookings,name='adbooking'),
+    path('adcancel/<int:id>',views.ad_cancel_booking,name="cancel_booking"),
+    path('addelete/<int:id>',views.ad_delete_booking,name="addelete_booking"),
+    path('adpayment/',views.adpayment,name="adpayment"),
+
+   
 
     path('date/',views.date,name='date'),
     path('payment/<int:tool_id>/', views.payment, name='payment'),
