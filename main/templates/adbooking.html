@@ -141,8 +141,14 @@ h2 a {
 .container td:nth-child(4),
 .container th:nth-child(4) { display: none; }
 }
+.top_link img {
+    width: 28px;
+    padding-right: 7px;
+    margin-top: -3px;
+}
   </style>
-  <h1>My Bookings</h1>
+  <a href="/adhome/" style="color: beige;font-weight: bold;">Return Home</a>
+  <h1>User Pickup Requests</h1>
 
 
 <table class="container">
@@ -151,11 +157,13 @@ h2 a {
             <th><h1>Username</h1></th>
 			<th><h1>Scrap Item</h1></th>
 			<th><h1>Quantity</h1></th>
+      <th><h1>Amount</h1></th>
 			<th><h1>Date</h1></th>
 			<th><h1>Location</h1></th>
-            <th><h1>Status</h1></th>
       <th><h1>Description</h1></th>
-      			<th><h1>Edit</h1></th>
+            <th><h1>Status</h1></th>
+      
+      			<th><h1>Accept</h1></th>
 			<th><h1>Remove</h1></th>
             <th><h1>Cancel</h1></th>
 
@@ -169,10 +177,12 @@ h2 a {
         <td>{{i.owner.username}}</td>
 		    <td>{{i.scrap_name}}</td>
         <td>{{i.scrap_quantity}}</td>
+        <td>{{i.total_price}}</td>
         <td>{{i.date}}</td>
         <td>{{i.location}}</td>
-        <td>{{i.status}}</td>
+        
         <td>{{i.description}}</td>
+        <td>{{i.status}}</td>
         <td><a href="/accept_user_booking/{{i.owner.id}}/{{i.id}}" onclick="return confirmAcceptance()">Accept</a></td>
         <td><a href="/addelete/{{i.id}}" onclick="return confirmDelete()">Delete</a></td>
         <td><a href="/adcancel/{{i.id}}" onclick="return confirmCancel()">Cancel</a></td>

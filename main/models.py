@@ -8,15 +8,6 @@ class reg(models.Model):
     address=models.CharField(max_length=50)
     phone=models.IntegerField()
 
-
-class Assign(models.Model):
-    name=models.CharField(max_length=10)
-    price=models.CharField(max_length=30)
-    date=models.DateField()
-    time=models.TimeField()
-    area=models.CharField(max_length=30)
-    description=models.CharField(max_length=30)
-
 class feedback(models.Model):
     name=models.CharField(max_length=30)
     email=models.EmailField()

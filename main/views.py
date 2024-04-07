@@ -11,7 +11,7 @@ import smtplib
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import reg,Assign,feedback,booking,pay,ufeedback
+from .models import reg,booking,pay,ufeedback
 import razorpay #import this
 from django.conf import settings
 from django.http import JsonResponse #import this
@@ -333,11 +333,6 @@ def complete_booking(request, id):
     data.status = 'Completed'
     data.save()
     return render(request, 'adhome.html')
-
-
-def date(request):
-    data=Assign.objects.all()
-    return render(request,'date.html',{'data':data})
 
 
 from decimal import Decimal

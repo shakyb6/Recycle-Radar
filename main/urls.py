@@ -57,9 +57,6 @@ urlpatterns = [
     path('addelete/<int:id>',views.ad_delete_booking,name="addelete_booking"),
     path('adpayment/',views.adpayment,name="adpayment"),
 
-   
-
-    path('date/',views.date,name='date'),
     path('payment/<int:id>/', views.payment, name='payment'),
     path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
 
