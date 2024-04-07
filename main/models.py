@@ -48,3 +48,4 @@ class pay(models.Model):
     # phonenumber=models.CharField(max_length=30)yth
     membername=models.CharField(max_length=30)
     price=models.CharField(max_length=30)
+    
