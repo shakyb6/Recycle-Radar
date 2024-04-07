@@ -60,7 +60,7 @@ urlpatterns = [
    
 
     path('date/',views.date,name='date'),
-    path('payment/<int:tool_id>/', views.payment, name='payment'),
+    path('payment/<int:id>/', views.payment, name='payment'),
     path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
 
 

@@ -149,7 +149,7 @@ h2 a {
         <td>{{i.date}}</td>
         <td>{{i.location}}</td>
         <td>{{i.total_price}}</td>
-        <td><a href="{% url 'payment' tool_id=i.id %}" class="buy" style="color: #A7A1AE;">Pay</a></td>
+        <td><a href="{% url 'payment' id=i.id %}" class="buy" style="color: #A7A1AE;">Pay</a></td>
         
       </tr>
       {% endfor %}

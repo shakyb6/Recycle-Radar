@@ -340,100 +340,94 @@ def date(request):
     return render(request,'date.html',{'data':data})
 
 
-def payment(request, tool_id=None):
-    if tool_id is None:
-        # Handle the case where no tool_id is provided
-        # Redirect the user to the tool table or show an error message
-        return redirect('date')  # Adjust the URL name for your tool table view
+from decimal import Decimal
 
-    # Get the specific tool using the tool_id
-    a = get_object_or_404(Assign, id=tool_id)
+def payment(request, id=None):
+    if id is None:
+        # Handle the case where no booking_id is provided
+        # Redirect the user to an error page or show an error message
+        return redirect('adhome')  # Adjust the URL name for your error page view
+
+    # Get the specific booking using the booking_id
+    booking_instance = get_object_or_404(booking, id=id)
 
     # Rest of your view logic
-    amount = int(a.price) * 100  # Convert the product price to cents
+    total_price = booking_instance.total_price * 100  # Convert the total price to cents
+    total_price_int = int(total_price)  # Convert to integer as required by Razorpay
     currency = 'INR'
-    razorpay_order = razorpay_client.order.create(dict(amount=amount, currency=currency, payment_capture='0'))
+    razorpay_order = razorpay_client.order.create(dict(amount=total_price_int, currency=currency, payment_capture='0'))
 
     razorpay_order_id = razorpay_order['id']
     callback_url = '/paymenthandler/'
 
+    user_phone_number = booking_instance.owner.phone
+
     context = {
         'razorpay_order_id': razorpay_order_id,
         'razorpay_merchant_key': settings.RAZOR_KEY_ID,
-        'razorpay_amount': amount,
+        'razorpay_amount': total_price_int,
         'currency': currency,
         'callback_url': callback_url,
+        'user_phone_number': user_phone_number,
     }
 
     # Create a Payment instance and save it
     try:
         payment_instance = pay(
-           
-            membername=a.name,
-            price=a.price,
-  
+            membername=booking_instance.owner.username,
+            price=booking_instance.total_price,
         )
         payment_instance.save()
     except Exception as e:
         print(f"Error saving payment: {e}")
         
-
     return render(request, 'payment.html', context=context)
+
 
 @csrf_exempt
 def paymenthandler(request):
- 
-    # only accept POST request.
     if request.method == "POST":
         try:
-           
-            # get the required parameters from post request.
+            # Get the required parameters from the POST request
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             signature = request.POST.get('razorpay_signature', '')
+            booking_id = request.POST.get('id', None)  # Moved outside the inner try-except block
+
             params_dict = {
                 'razorpay_order_id': razorpay_order_id,
                 'razorpay_payment_id': payment_id,
                 'razorpay_signature': signature
             }
- 
-            # verify the payment signature.
-            result = razorpay_client.utility.verify_payment_signature(
-                params_dict)
+
+            # Verify the payment signature
+            result = razorpay_client.utility.verify_payment_signature(params_dict)
             if result is not None:
-                amount = 20000  # Rs. 200
-                try:
- 
-                    # capture the payemt
-                    razorpay_client.payment.capture(payment_id, amount)
- 
-                    # render success page on successful caputre of payment
-                    return render(request, 'pay_success.html')
-                except:
- 
-                    # if there is an error while capturing payment.
-                    return render(request, 'pay_failed.html')
+                if booking_id:
+                    # Retrieve the booking object
+                    booking_instance = booking.objects.get(pk=booking_id)
+                    # Retrieve the user's phone number associated with the booking
+                    user_phone_number = booking_instance.owner.phone
+                    amount = 20000  # Rs. 200
+                    try:
+                        # Capture the payment
+                        razorpay_client.payment.capture(payment_id, amount, {'contact': user_phone_number})
+                        # Render success page on successful capture of payment
+                        return render(request, 'pay_success.html')
+                    except Exception as capture_error:
+                        # If there is an error while capturing payment
+                        print(capture_error)
+                        return render(request, 'pay_failed.html')
+                else:
+                    # Handle if booking_id is not provided in the POST data
+                    return HttpResponseBadRequest("Booking ID not provided")
             else:
- 
-                # if signature verification fails.
+                # If signature verification fails
                 return render(request, 'pay_failed.html')
-        except:
- 
-            # if we don't find the required parameters in POST data
-            return HttpResponseBadRequest()
+        except Exception as e:
+            # If an exception occurs
+            print(e)
+            return HttpResponseBadRequest("An error occurred")
     else:
-       # if other than POST request is made.
+        # If other than POST request is made
         return HttpResponseBadRequest()
-   
-
-
-
-
-
-
-
-
-            
-
-
-       

@@ -74,22 +74,27 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     var options = {
-        key: "{{ razorpay_merchant_key }}",
-        currency: "{{ currency }}",
-        name: "Razorpay For myShop",
-        order_id: "{{ razorpay_order_id }}",
-        callback_url: "{{ callback_url }}",
-        handler: function (response) {
-            // Handle the payment response
-        }
-    };
+    key: "{{ razorpay_merchant_key }}",
+    currency: "{{ currency }}",
+    name: "Razorpay For myShop",
+    order_id: "{{ razorpay_order_id }}",
+    callback_url: "{{ callback_url }}",
+    handler: function (response) {
+        // Handle the payment response
+    },
+    prefill: {
+        contact: "{{ user_phone_number }}", // Pass the user's mobile number here
+        // Add other pre-filled details if needed
+    }
+};
 
-    var rzp1 = new Razorpay(options);
+var rzp1 = new Razorpay(options);
 
-    document.getElementById("pay-btn").onclick = function (e) {
-        rzp1.open();
-        e.preventDefault();
-    };
+document.getElementById("pay-btn").onclick = function (e) {
+    rzp1.open();
+    e.preventDefault();
+};
+
 </script>
 
 </html>
