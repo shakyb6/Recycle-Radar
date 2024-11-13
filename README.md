@@ -1,4 +1,4 @@
-# Scrap Collection Platform
+# Web Based Application for Recycle Waste Management
 
 A web-based platform developed using Django for efficient scrap collection management. The platform allows users to book scrap collection services, track their requests in real-time, and securely pay for the services. It also includes an admin dashboard to manage bookings and process requests. The project promotes environmental awareness through its content.
 
